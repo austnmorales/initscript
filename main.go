@@ -22,7 +22,7 @@ func nmap_scan() {
 }
 
 func nikto_scan() {
-	out, err := exec.Command("sudo", "nikto", string(os.Args[1])).Output()
+	out, err := exec.Command("sudo", "nikto", "-host", string(os.Args[1])).Output()
 	if err != nil {
 		log.Fatal(err)
 	}
