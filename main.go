@@ -8,12 +8,21 @@ import (
 )
 
 func main() {
-	nmap_scan()
+	go nmap_scan()
+	go nikto_scan()
 }
 
 func nmap_scan() {
-	//ip := os.Args[1]
-	out, err := exec.Command("sudo", "nmap", string(os.Args[1])).Output()
+	out, err := exec.Command("sudo", "nmap", "-A", "-T4", string(os.Args[1])).Output()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println(string(out))
+}
+
+func nikto_scan() {
+	out, err := exec.Command("sudo", "nikto", string(os.Args[1])).Output()
 	if err != nil {
 		log.Fatal(err)
 	}
